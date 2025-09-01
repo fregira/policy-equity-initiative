@@ -650,28 +650,40 @@
                 return;
             }
 
-            // Prevent double submit
+            // Prevent default submit
             e.preventDefault();
 
             const container = document.querySelector('.container');
-            container.innerHTML = `
-                <h1>Thank You!</h1>
-                <p>Your request has been submitted successfully.</p>
-                <p>Next steps:</p>
-                <ol>
-                  <li>You will receive a confirmation from the system (check spam/junk folder).</li>
-                  <li>Email your <strong>redacted documents</strong> to: 
-                     <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a></li>
-                  <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
-                </ol>
-                <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
-                <p>For inquiries, contact R2 Solutions.</p>
-              `;
 
-            // Now submit the form
-            setTimeout(() => {
-                e.target.submit();
-            }, 1000);
+            // Send data to Formspree via fetch
+            fetch('https://formspree.io/f/mdklaynz', {
+                method: 'POST',
+                body: new FormData(e.target),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log("✅ Form submitted successfully");
+                        container.innerHTML = `
+        <h1>Thank You!</h1>
+        <p>Your request has been submitted successfully.</p>
+        <p>Next steps:</p>
+        <ol>
+          <li>You will receive a confirmation from the system (check spam/junk folder).</li>
+          <li>Email your <strong>redacted documents</strong> to: 
+             <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a></li>
+          <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
+        </ol>
+        <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
+        <p>For inquiries, contact R2 Solutions.</p>
+      `;
+                    } else {
+                        alert("❌ Submission failed. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("❌ Error submitting form. Please check your internet connection.");
+                });
         });
 
         // Initialize on load
