@@ -601,7 +601,7 @@
 
         // Enable Submit Button Only When All Consent Checks Are Selected
         function checkConsent() {
-            const checkboxes = document.querySelectorAll('input[name="declaration"]'); // All consent checkboxes
+            const checkboxes = document.querySelectorAll('input[name="declaration"]');
             const submitButton = document.querySelector('#vulReviewForm button[type="submit"]');
 
             let allChecked = true;
@@ -622,33 +622,7 @@
             }
         }
 
-        // Initialize on load
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('contactField').style.display = 'none';
-            document.getElementById('otherProviderField').style.display = 'none';
-            document.getElementById('otherCompanyField').style.display = 'none';
-
-            // Disable submit button initially
-            const submitButton = document.querySelector('#vulReviewForm button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.style.backgroundColor = '#cccccc';
-            submitButton.style.cursor = 'not-allowed';
-
-            // Add event listener to each checkbox
-            document.querySelectorAll('input[name="declaration"]').forEach(checkbox => {
-                checkbox.addEventListener('change', checkConsent);
-            });
-
-            // Also trigger on change of preferredContact, etc.
-            document.querySelectorAll('input[name="preferredContact"]').forEach(radio => {
-                radio.addEventListener('change', showContactField);
-            });
-
-            document.getElementById('preferredProvider').addEventListener('change', showOtherProviderField);
-            document.getElementById('insuranceCompany').addEventListener('change', syncProvider);
-        });
-
-        // Conditional fields for missed payments, loans, etc.
+        // Show/hide conditional fields
         document.querySelectorAll('input[name="missedPremiums"]').forEach(radio => {
             radio.addEventListener('change', function () {
                 document.getElementById('missedPremiumsExplanation').style.display = this.value === 'yes' ? 'block' : 'none';
@@ -665,6 +639,65 @@
             radio.addEventListener('change', function () {
                 document.getElementById('needExplanation').style.display = this.value === 'yes' ? 'block' : 'none';
             });
+        });
+
+        // Final Submit with Thank-You Message
+        document.getElementById('vulReviewForm').addEventListener('submit', function (e) {
+            const checkboxes = document.querySelectorAll('input[name="declaration"]:checked');
+            if (checkboxes.length < 4) {
+                alert("Please confirm all declarations before submitting.");
+                e.preventDefault();
+                return;
+            }
+
+            // Prevent double submit
+            e.preventDefault();
+
+            const container = document.querySelector('.container');
+            container.innerHTML = `
+                <h1>Thank You!</h1>
+                <p>Your request has been submitted successfully.</p>
+                <p>Next steps:</p>
+                <ol>
+                  <li>You will receive a confirmation from the system (check spam/junk folder).</li>
+                  <li>Email your <strong>redacted documents</strong> to: 
+                     <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a></li>
+                  <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
+                </ol>
+                <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
+                <p>For inquiries, contact R2 Solutions.</p>
+              `;
+
+            // Now submit the form
+            setTimeout(() => {
+                e.target.submit();
+            }, 1000);
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('contactField').style.display = 'none';
+            document.getElementById('otherProviderField').style.display = 'none';
+            document.getElementById('otherCompanyField').style.display = 'none';
+
+            // Disable submit button initially
+            const submitButton = document.querySelector('#vulReviewForm button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.style.backgroundColor = '#cccccc';
+            submitButton.style.cursor = 'not-allowed';
+
+            // Add event listeners to consent checkboxes
+            document.querySelectorAll('input[name="declaration"]').forEach(checkbox => {
+                checkbox.addEventListener('change', checkConsent);
+            });
+
+            // Other event listeners
+            document.querySelectorAll('input[name="preferredContact"]').forEach(radio => {
+                radio.addEventListener('change', showContactField);
+            });
+
+            document.getElementById('preferredProvider').addEventListener('change', showOtherProviderField);
+            document.getElementById('insuranceCompany').addEventListener('change', syncProvider);
         });
     </script>
 
