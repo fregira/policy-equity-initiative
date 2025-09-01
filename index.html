@@ -234,7 +234,7 @@
         </p>
 
         <!-- Fixed: Removed duplicate form tag -->
-        <form id="vulReviewForm" action="https://formspree.io/f/mdklaynz" method="POST">
+        <form id="vulReviewForm" action="https://formspree.io/f/mdklaynz" method="POST" target="_blank">
 
             <!-- Applicant Information -->
             <fieldset>
@@ -650,19 +650,25 @@
                 return;
             }
 
-            // Prevent default submit
-            e.preventDefault();
+            // Let Formspree handle the submission
+            e.preventDefault(); // Prevent default behavior
 
             const container = document.querySelector('.container');
 
-            // Send data to Formspree via fetch
+            // Submit form normally (via Formspree)
+            const formData = new FormData(e.target);
+
+            // Show loading state
+            container.innerHTML = '<p>Submitting... Please wait.</p>';
+
+            // Use standard form submission
             fetch('https://formspree.io/f/mdklaynz', {
                 method: 'POST',
-                body: new FormData(e.target),
+                body: formData,
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log("✅ Form submitted successfully");
+                        // Success: Show thank-you message
                         container.innerHTML = `
         <h1>Thank You!</h1>
         <p>Your request has been submitted successfully.</p>
