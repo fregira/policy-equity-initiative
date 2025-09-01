@@ -234,11 +234,7 @@
         </p>
 
         <!-- Fixed: Removed duplicate form tag -->
-        <form 
-              id="vulReviewForm" 
-              action="https://formspree.io/f/mdklaynz" 
-              method="POST" 
-              target="_blank">
+        <form id="vulReviewForm" action="https://formspree.io/f/mdklaynz" method="POST">
 
             <!-- Applicant Information -->
             <fieldset>
@@ -672,22 +668,8 @@
             }
 
             // Show your thank-you message in THIS tab
-            const container = document.querySelector('.container');
-            container.innerHTML = `
-                <div style="text-align:center; padding:30px; background:#e8f5e8; border:1px solid #c8e6c9; border-radius:8px;">
-                <h2>Thank You!</h2>
-                <p>Your request has been submitted successfully.</p>
-                <p>Next steps:</p>
-                <ol>
-                    <li>You will receive a confirmation from the system (check spam/junk folder).</li>
-                    <li>Email your <strong>redacted documents</strong> to: 
-                    <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a></li>
-                    <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
-                </ol>
-                <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
-                <p>For inquiries, contact R2 Solutions.</p>
-                </div>
-            `;
+            const thankYou = document.getElementById('thankYou');
+            thankYou.style.display = 'block';
         });
 
         // Initialize on load
@@ -720,4 +702,3 @@
 </body>
 
 </html>
-
