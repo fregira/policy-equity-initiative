@@ -785,7 +785,7 @@
                     // Success - show thank you message
                     document.getElementById('successMessage').style.display = 'block';
                     form.style.display = 'none';
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
                 } else {
                     throw new Error('Network response was not ok');
                 }
@@ -830,3 +830,4 @@
 </body>
 
 </html>
+
