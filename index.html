@@ -129,9 +129,19 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-5px);
+            }
+
+            75% {
+                transform: translateX(5px);
+            }
         }
 
         fieldset.error .error-indicator {
@@ -346,7 +356,8 @@
                 </li>
                 <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
             </ol>
-            <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
+            <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews
+                only.</p>
             <p>For inquiries, contact R2 Solutions.</p>
         </div>
 
@@ -363,15 +374,15 @@
                 <label>Preferred Communication Method <span class="required">*</span></label>
                 <div class="checkbox-group" id="contactMethodGroup">
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="email" id="contact_email" required> 
+                        <input type="radio" name="preferredContact" value="email" id="contact_email" required>
                         <label for="contact_email" style="display: inline; margin: 0;">Email</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="phone" id="contact_phone"> 
+                        <input type="radio" name="preferredContact" value="phone" id="contact_phone">
                         <label for="contact_phone" style="display: inline; margin: 0;">Phone</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="mail" id="contact_mail"> 
+                        <input type="radio" name="preferredContact" value="mail" id="contact_mail">
                         <label for="contact_mail" style="display: inline; margin: 0;">Mail</label>
                     </div>
                 </div>
@@ -504,11 +515,11 @@
                 </label>
                 <div class="checkbox-group" id="ongoingNeedGroup">
                     <div class="checkbox-item">
-                        <input type="radio" name="ongoingNeed" value="yes" id="ongoing_yes" required> 
+                        <input type="radio" name="ongoingNeed" value="yes" id="ongoing_yes" required>
                         <label for="ongoing_yes" style="display: inline; margin: 0;">Yes</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="ongoingNeed" value="no" id="ongoing_no"> 
+                        <input type="radio" name="ongoingNeed" value="no" id="ongoing_no">
                         <label for="ongoing_no" style="display: inline; margin: 0;">No</label>
                     </div>
                 </div>
@@ -524,11 +535,11 @@
                 </label>
                 <div class="checkbox-group" id="restructureGroup">
                     <div class="checkbox-item">
-                        <input type="radio" name="openToRestructure" value="yes" id="restructure_yes" required> 
+                        <input type="radio" name="openToRestructure" value="yes" id="restructure_yes" required>
                         <label for="restructure_yes" style="display: inline; margin: 0;">Yes</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="openToRestructure" value="no" id="restructure_no"> 
+                        <input type="radio" name="openToRestructure" value="no" id="restructure_no">
                         <label for="restructure_no" style="display: inline; margin: 0;">No</label>
                     </div>
                 </div>
@@ -537,27 +548,33 @@
                 <div class="checkbox-group">
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="shorterPayPeriod" id="goal1">
-                        <label for="goal1" style="display: inline; margin: 0;">Shorter premium payment period (e.g., 5-Pay or 10-Pay option)</label>
+                        <label for="goal1" style="display: inline; margin: 0;">Shorter premium payment period (e.g.,
+                            5-Pay or 10-Pay option)</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="removeRiders" id="goal2">
-                        <label for="goal2" style="display: inline; margin: 0;">Remove unnecessary riders to reduce costs</label>
+                        <label for="goal2" style="display: inline; margin: 0;">Remove unnecessary riders to reduce
+                            costs</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="reduceDeathBenefit" id="goal3">
-                        <label for="goal3" style="display: inline; margin: 0;">Reduce death benefit to lower insurance charges</label>
+                        <label for="goal3" style="display: inline; margin: 0;">Reduce death benefit to lower insurance
+                            charges</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="increaseLivingBenefits" id="goal4">
-                        <label for="goal4" style="display: inline; margin: 0;">Focus more on living benefits and cash accumulation</label>
+                        <label for="goal4" style="display: inline; margin: 0;">Focus more on living benefits and cash
+                            accumulation</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="lowerAnnualPremium" id="goal5">
-                        <label for="goal5" style="display: inline; margin: 0;">Lower annual premium (for long-term sustainability)</label>
+                        <label for="goal5" style="display: inline; margin: 0;">Lower annual premium (for long-term
+                            sustainability)</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="betterFundAccess" id="goal6">
-                        <label for="goal6" style="display: inline; margin: 0;">Better fund allocation options with lower fees</label>
+                        <label for="goal6" style="display: inline; margin: 0;">Better fund allocation options with lower
+                            fees</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="restructureGoals" value="other" id="goal_other">
@@ -675,19 +692,23 @@
                 <div class="checkbox-group" id="declarationGroup">
                     <div class="checkbox-item">
                         <input type="checkbox" name="declaration" value="ownership" id="decl1" required>
-                        <label for="decl1" style="display: inline; margin: 0;">I am the legal owner of the policy described above</label>
+                        <label for="decl1" style="display: inline; margin: 0;">I am the legal owner of the policy
+                            described above</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="declaration" value="truth" id="decl2" required>
-                        <label for="decl2" style="display: inline; margin: 0;">The information provided is accurate to the best of my knowledge</label>
+                        <label for="decl2" style="display: inline; margin: 0;">The information provided is accurate to
+                            the best of my knowledge</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="declaration" value="noFraud" id="decl3" required>
-                        <label for="decl3" style="display: inline; margin: 0;">I have not engaged in misrepresentation or abuse of the policy</label>
+                        <label for="decl3" style="display: inline; margin: 0;">I have not engaged in misrepresentation
+                            or abuse of the policy</label>
                     </div>
                     <div class="checkbox-item">
                         <input type="checkbox" name="declaration" value="consentReview" id="decl4" required>
-                        <label for="decl4" style="display: inline; margin: 0;">I consent to a professional review of my policy and financial context</label>
+                        <label for="decl4" style="display: inline; margin: 0;">I consent to a professional review of my
+                            policy and financial context</label>
                     </div>
                 </div>
             </fieldset>
@@ -810,7 +831,7 @@
             const select = document.getElementById('preferredProvider');
             const otherField = document.getElementById('otherProviderField');
             const otherInput = document.getElementById('otherProvider');
-            
+
             if (select.value === 'other') {
                 otherField.style.display = 'block';
                 otherInput.required = true;
@@ -825,7 +846,7 @@
             const select = document.getElementById('insuranceCompany');
             const otherField = document.getElementById('otherCompanyField');
             const otherInput = document.getElementById('otherCompany');
-            
+
             if (select.value === 'otherCompany') {
                 otherField.style.display = 'block';
                 otherInput.required = true;
@@ -839,7 +860,7 @@
         function showNeedExplanation() {
             const yesRadio = document.getElementById('ongoing_yes');
             const container = document.getElementById('needExplanation');
-            
+
             if (yesRadio.checked) {
                 container.style.display = 'block';
             } else {
@@ -854,13 +875,13 @@
 
             const isValid = section.validators.every(validator => validator());
             const fieldset = document.getElementById(sectionId);
-            
+
             if (isValid) {
                 fieldset.classList.remove('error');
             } else {
                 fieldset.classList.add('error');
             }
-            
+
             return isValid;
         }
 
@@ -893,7 +914,7 @@
                     li.onclick = () => scrollToSection(section.id);
                     errorList.appendChild(li);
                 });
-                
+
                 errorMessage.style.display = 'block';
                 errorMessage.scrollIntoView({ behavior: 'smooth' });
                 return false;
@@ -937,12 +958,9 @@
         }
 
         // Handle form submission
-        document.getElementById('vulReviewForm').addEventListener('submit', function(e) {
+        document.getElementById('vulReviewForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            
-            // Clean formatted numbers before validation and submission
-            cleanFormDataForSubmission();
-            
+
             // Validate form first
             if (!validateForm()) {
                 return;
@@ -951,7 +969,7 @@
             const form = this;
             const submitBtn = document.getElementById('submitBtn');
             const originalText = submitBtn.textContent;
-            
+
             // Show loading state
             submitBtn.textContent = 'Submitting...';
             submitBtn.disabled = true;
@@ -967,143 +985,33 @@
                     'Accept': 'application/json'
                 }
             })
-            .then(response => {
-                if (response.ok) {
-                    // Success - show thank you message
-                    document.getElementById('successMessage').style.display = 'block';
-                    form.style.display = 'none';
-                    document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                const errorMessage = document.getElementById('errorMessage');
-                const errorList = document.getElementById('errorList');
-                errorList.innerHTML = '<li>There was a problem submitting your form. Please try again or contact us directly at reliable.resource.02@gmail.com</li>';
-                errorMessage.style.display = 'block';
-                errorMessage.scrollIntoView({ behavior: 'smooth' });
-            })
-            .finally(() => {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
+                .then(response => {
+                    if (response.ok) {
+                        // Success - show thank you message
+                        document.getElementById('successMessage').style.display = 'block';
+                        form.style.display = 'none';
+                        document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    const errorMessage = document.getElementById('errorMessage');
+                    const errorList = document.getElementById('errorList');
+                    errorList.innerHTML = '<li>There was a problem submitting your form. Please try again or contact us directly at reliable.resource.02@gmail.com</li>';
+                    errorMessage.style.display = 'block';
+                    errorMessage.scrollIntoView({ behavior: 'smooth' });
+                })
+                .finally(() => {
+                    // Reset button
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                });
         });
 
-        // Number formatting functions
-        function formatNumber(num) {
-            if (!num) return '';
-            // Remove any existing commas and convert to number
-            const cleanNum = parseFloat(num.toString().replace(/,/g, ''));
-            if (isNaN(cleanNum)) return num;
-            
-            // Format with commas and 2 decimal places
-            return cleanNum.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-        }
-
-        function parseNumber(formattedNum) {
-            if (!formattedNum) return '';
-            // Remove commas and return clean number
-            return formattedNum.toString().replace(/,/g, '');
-        }
-
-        function addNumberFormatting() {
-            // Get all number inputs that should be formatted (currency fields)
-            const currencyFields = [
-                'currentFaceAmount',
-                'originalFaceAmount', 
-                'totalPremiumsPaid',
-                'currentPremium',
-                'cashSurrenderValue',
-                'netCashValue',
-                'affordablePremium'
-            ];
-
-            currencyFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (!field) return;
-
-                // Format on blur (when user leaves the field)
-                field.addEventListener('blur', function() {
-                    if (this.value) {
-                        const cleanValue = parseNumber(this.value);
-                        const numValue = parseFloat(cleanValue);
-                        if (!isNaN(numValue) && numValue > 0) {
-                            this.value = formatNumber(cleanValue);
-                        }
-                    }
-                });
-
-                // Clean format on focus (when user clicks into field)
-                field.addEventListener('focus', function() {
-                    if (this.value) {
-                        this.value = parseNumber(this.value);
-                    }
-                });
-
-                // Prevent non-numeric input while typing
-                field.addEventListener('input', function(e) {
-                    // Allow only numbers, backspace, delete, and decimal points
-                    let value = this.value.replace(/[^0-9.]/g, '');
-                    
-                    // Ensure only one decimal point
-                    const decimalCount = (value.match(/\./g) || []).length;
-                    if (decimalCount > 1) {
-                        value = value.substring(0, value.lastIndexOf('.'));
-                    }
-                    
-                    // Limit to 2 decimal places
-                    if (value.includes('.')) {
-                        const parts = value.split('.');
-                        if (parts[1] && parts[1].length > 2) {
-                            value = parts[0] + '.' + parts[1].substring(0, 2);
-                        }
-                    }
-                    
-                    this.value = value;
-                });
-
-                // Handle paste events
-                field.addEventListener('paste', function(e) {
-                    e.preventDefault();
-                    const pastedText = (e.clipboardData || window.clipboardData).getData('text');
-                    const cleanValue = pastedText.replace(/[^0-9.]/g, '');
-                    const numValue = parseFloat(cleanValue);
-                    if (!isNaN(numValue)) {
-                        this.value = cleanValue;
-                        this.dispatchEvent(new Event('input'));
-                    }
-                });
-            });
-        }
-
-        // Override form submission to clean number formats
-        function cleanFormDataForSubmission() {
-            const currencyFields = [
-                'currentFaceAmount',
-                'originalFaceAmount', 
-                'totalPremiumsPaid',
-                'currentPremium',
-                'cashSurrenderValue',
-                'netCashValue',
-                'affordablePremium'
-            ];
-
-            currencyFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field && field.value) {
-                    field.value = parseNumber(field.value);
-                }
-            });
-        }
-
         // Initialize on load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Set up event listeners
             document.querySelectorAll('input[name="preferredContact"]').forEach(radio => {
                 radio.addEventListener('change', showContactField);
@@ -1125,9 +1033,6 @@
 
             // Add real-time validation
             addRealTimeValidation();
-            
-            // Add number formatting
-            addNumberFormatting();
         });
     </script>
 
