@@ -58,6 +58,7 @@
         input[type="text"],
         input[type="email"],
         input[type="number"],
+        input[type="date"],
         select,
         textarea {
             width: 100%;
@@ -96,6 +97,11 @@
             background-color: #132b4a;
         }
 
+        button:disabled {
+            background-color: #cccccc !important;
+            cursor: not-allowed !important;
+        }
+
         .disclaimer {
             font-size: 0.85rem;
             color: #555;
@@ -127,6 +133,23 @@
             border-radius: 6px;
             font-size: 0.95rem;
             line-height: 1.7;
+        }
+
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .success-message {
+            background-color: #e8f5e8;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
@@ -185,7 +208,7 @@
         </p>
 
         <ul>
-            <li>A comparison of your policy’s <strong>actual versus promised performance</strong></li>
+            <li>A comparison of your policy's <strong>actual versus promised performance</strong></li>
             <li>A breakdown of <strong>fees, charges, and fund performance</strong></li>
             <li>An assessment of whether your policy still meets your financial goals</li>
             <li>Options for <strong>restructuring</strong> to improve affordability and value</li>
@@ -233,8 +256,28 @@
             affordability or structure.
         </p>
 
-        <!-- Fixed: Removed duplicate form tag -->
-        <form id="vulReviewForm" action="https://formspree.io/f/mdklaynz" method="POST">
+        <!-- Error message container -->
+        <div id="errorMessage" class="error-message">
+            <strong>Error:</strong> There was a problem submitting your form. Please try again.
+        </div>
+
+        <!-- Success message container -->
+        <div id="successMessage" class="success-message">
+            <h2>Thank You!</h2>
+            <p>Your request has been submitted successfully.</p>
+            <p>Next steps:</p>
+            <ol style="text-align: left; display: inline-block;">
+                <li>You will receive a confirmation from the system (check spam/junk folder).</li>
+                <li>Email your <strong>redacted documents</strong> to:
+                    <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a>
+                </li>
+                <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
+            </ol>
+            <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.</p>
+            <p>For inquiries, contact R2 Solutions.</p>
+        </div>
+
+        <form id="vulReviewForm" action="https://formspree.io/f/mdklaynz" method="POST" novalidate>
 
             <!-- Applicant Information -->
             <fieldset>
@@ -246,21 +289,23 @@
                 <label>Preferred Communication Method <span class="required">*</span></label>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="email" required
-                            onchange="showContactField()"> Email
+                        <input type="radio" name="preferredContact" value="email" id="contact_email" required> 
+                        <label for="contact_email" style="display: inline; margin: 0;">Email</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="phone" onchange="showContactField()"> Phone
+                        <input type="radio" name="preferredContact" value="phone" id="contact_phone"> 
+                        <label for="contact_phone" style="display: inline; margin: 0;">Phone</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="radio" name="preferredContact" value="mail" onchange="showContactField()"> Mail
+                        <input type="radio" name="preferredContact" value="mail" id="contact_mail"> 
+                        <label for="contact_mail" style="display: inline; margin: 0;">Mail</label>
                     </div>
                 </div>
 
                 <!-- Dynamic Contact Field -->
                 <div id="contactField" style="margin-top: 15px; display: none;">
                     <label id="contactLabel"></label>
-                    <input type="text" id="contactInput" name="contactDetail" placeholder="" required />
+                    <input type="text" id="contactInput" name="contactDetail" placeholder="" />
                 </div>
             </fieldset>
 
@@ -270,7 +315,7 @@
                 <p>Select the insurance provider you'd like to involve in your policy review.</p>
 
                 <label for="preferredProvider">Insurance Provider <span class="required">*</span></label>
-                <select id="preferredProvider" name="preferredProvider" required onchange="showOtherProviderField()">
+                <select id="preferredProvider" name="preferredProvider" required>
                     <option value="">-- Select Provider --</option>
                     <option value="allianz">Allianz</option>
                     <option value="axa">AXA Philippines</option>
@@ -302,7 +347,7 @@
             <fieldset>
                 <legend>Policy Information</legend>
                 <label for="insuranceCompany">Insurance Company <span class="required">*</span></label>
-                <select id="insuranceCompany" name="insuranceCompany" required onchange="syncProvider()">
+                <select id="insuranceCompany" name="insuranceCompany" required>
                     <option value="">-- Select Insurance Company --</option>
                     <option value="allianz">Allianz</option>
                     <option value="axa">AXA Philippines</option>
@@ -380,8 +425,14 @@
                     (e.g., estate planning, legacy transfer, tax-efficient savings) <span class="required">*</span>
                 </label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" name="ongoingNeed" value="yes" required> Yes</div>
-                    <div class="checkbox-item"><input type="radio" name="ongoingNeed" value="no" required> No</div>
+                    <div class="checkbox-item">
+                        <input type="radio" name="ongoingNeed" value="yes" id="ongoing_yes" required> 
+                        <label for="ongoing_yes" style="display: inline; margin: 0;">Yes</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="radio" name="ongoingNeed" value="no" id="ongoing_no"> 
+                        <label for="ongoing_no" style="display: inline; margin: 0;">No</label>
+                    </div>
                 </div>
                 <div id="needExplanation" style="display:none; margin-top:10px;">
                     <label for="needDetails">Please explain your current planning need:</label>
@@ -394,42 +445,47 @@
                     improved living benefits? <span class="required">*</span>
                 </label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="radio" name="openToRestructure" value="yes" required> Yes
+                    <div class="checkbox-item">
+                        <input type="radio" name="openToRestructure" value="yes" id="restructure_yes" required> 
+                        <label for="restructure_yes" style="display: inline; margin: 0;">Yes</label>
                     </div>
-                    <div class="checkbox-item"><input type="radio" name="openToRestructure" value="no" required> No
+                    <div class="checkbox-item">
+                        <input type="radio" name="openToRestructure" value="no" id="restructure_no"> 
+                        <label for="restructure_no" style="display: inline; margin: 0;">No</label>
                     </div>
                 </div>
 
                 <label>If yes, which improvements would be most beneficial? (Check all that apply)</label>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="shorterPayPeriod">
-                        Shorter premium payment period (e.g., 5-Pay or 10-Pay option)
+                        <input type="checkbox" name="restructureGoals" value="shorterPayPeriod" id="goal1">
+                        <label for="goal1" style="display: inline; margin: 0;">Shorter premium payment period (e.g., 5-Pay or 10-Pay option)</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="removeRiders">
-                        Remove unnecessary riders to reduce costs
+                        <input type="checkbox" name="restructureGoals" value="removeRiders" id="goal2">
+                        <label for="goal2" style="display: inline; margin: 0;">Remove unnecessary riders to reduce costs</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="reduceDeathBenefit">
-                        Reduce death benefit to lower insurance charges
+                        <input type="checkbox" name="restructureGoals" value="reduceDeathBenefit" id="goal3">
+                        <label for="goal3" style="display: inline; margin: 0;">Reduce death benefit to lower insurance charges</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="increaseLivingBenefits">
-                        Focus more on living benefits and cash accumulation
+                        <input type="checkbox" name="restructureGoals" value="increaseLivingBenefits" id="goal4">
+                        <label for="goal4" style="display: inline; margin: 0;">Focus more on living benefits and cash accumulation</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="lowerAnnualPremium">
-                        Lower annual premium (for long-term sustainability)
+                        <input type="checkbox" name="restructureGoals" value="lowerAnnualPremium" id="goal5">
+                        <label for="goal5" style="display: inline; margin: 0;">Lower annual premium (for long-term sustainability)</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="betterFundAccess">
-                        Better fund allocation options with lower fees
+                        <input type="checkbox" name="restructureGoals" value="betterFundAccess" id="goal6">
+                        <label for="goal6" style="display: inline; margin: 0;">Better fund allocation options with lower fees</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="restructureGoals" value="other">
-                        Other: <input type="text" name="otherRestructureGoal" placeholder="Specify"
-                            style="width: 200px; font-size: 0.9rem;">
+                        <input type="checkbox" name="restructureGoals" value="other" id="goal_other">
+                        <label for="goal_other" style="display: inline; margin: 0;">Other:</label>
+                        <input type="text" name="otherRestructureGoal" placeholder="Specify"
+                            style="width: 200px; font-size: 0.9rem; margin-left: 10px;">
                     </div>
                 </div>
 
@@ -440,36 +496,58 @@
                 <label>What was your original purpose for purchasing this policy? <span
                         class="required">*</span></label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="checkbox" name="originalPurpose" value="investment">
-                        Investment/Savings</div>
-                    <div class="checkbox-item"><input type="checkbox" name="originalPurpose" value="estate"> Estate
-                        Planning</div>
-                    <div class="checkbox-item"><input type="checkbox" name="originalPurpose" value="legacy"> Legacy
-                        Planning</div>
-                    <div class="checkbox-item"><input type="checkbox" name="originalPurpose" value="tax"> Tax Planning
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="originalPurpose" value="investment" id="purpose1" required>
+                        <label for="purpose1" style="display: inline; margin: 0;">Investment/Savings</label>
                     </div>
-                    <div class="checkbox-item"><input type="checkbox" name="originalPurpose" value="other"> Other:
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="originalPurpose" value="estate" id="purpose2">
+                        <label for="purpose2" style="display: inline; margin: 0;">Estate Planning</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="originalPurpose" value="legacy" id="purpose3">
+                        <label for="purpose3" style="display: inline; margin: 0;">Legacy Planning</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="originalPurpose" value="tax" id="purpose4">
+                        <label for="purpose4" style="display: inline; margin: 0;">Tax Planning</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="originalPurpose" value="other" id="purpose_other">
+                        <label for="purpose_other" style="display: inline; margin: 0;">Other:</label>
                         <input type="text" name="otherPurpose" placeholder="Specify"
-                            style="width: 200px; font-size: 0.9rem;">
+                            style="width: 200px; font-size: 0.9rem; margin-left: 10px;">
                     </div>
                 </div>
 
                 <label>How was the policy presented to you at time of sale? (Check all that apply) <span
                         class="required">*</span></label>
                 <div class="checkbox-group">
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="investmentVehicle">
-                        Long-term investment vehicle</div>
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="selfFinancing">
-                        Self-financing policy</div>
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="cashTool"> Cash
-                        accumulation tool</div>
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="insurance">
-                        Insurance protection</div>
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="taxAdvantaged">
-                        Tax-advantaged savings</div>
-                    <div class="checkbox-item"><input type="checkbox" name="salePresentation" value="otherSale"> Other:
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="investmentVehicle" id="sale1" required>
+                        <label for="sale1" style="display: inline; margin: 0;">Long-term investment vehicle</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="selfFinancing" id="sale2">
+                        <label for="sale2" style="display: inline; margin: 0;">Self-financing policy</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="cashTool" id="sale3">
+                        <label for="sale3" style="display: inline; margin: 0;">Cash accumulation tool</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="insurance" id="sale4">
+                        <label for="sale4" style="display: inline; margin: 0;">Insurance protection</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="taxAdvantaged" id="sale5">
+                        <label for="sale5" style="display: inline; margin: 0;">Tax-advantaged savings</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" name="salePresentation" value="otherSale" id="sale_other">
+                        <label for="sale_other" style="display: inline; margin: 0;">Other:</label>
                         <input type="text" name="otherSale" placeholder="Specify"
-                            style="width: 200px; font-size: 0.9rem;">
+                            style="width: 200px; font-size: 0.9rem; margin-left: 10px;">
                     </div>
                 </div>
             </fieldset>
@@ -499,7 +577,7 @@
                         <li>Full policy number</li>
                         <li>Bank account or EFT details</li>
                         <li>Social Security / TIN / ID numbers</li>
-                        <li>Third-party personal information (e.g., beneficiaries’ full details)</li>
+                        <li>Third-party personal information (e.g., beneficiaries' full details)</li>
                         <li>Signatures</li>
                     </ul>
 
@@ -517,25 +595,25 @@
                 <p>I confirm that:</p>
                 <div class="checkbox-group">
                     <div class="checkbox-item">
-                        <input type="checkbox" name="declaration" value="ownership" required>
-                        I am the legal owner of the policy described above
+                        <input type="checkbox" name="declaration" value="ownership" id="decl1" required>
+                        <label for="decl1" style="display: inline; margin: 0;">I am the legal owner of the policy described above</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="declaration" value="truth" required>
-                        The information provided is accurate to the best of my knowledge
+                        <input type="checkbox" name="declaration" value="truth" id="decl2" required>
+                        <label for="decl2" style="display: inline; margin: 0;">The information provided is accurate to the best of my knowledge</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="declaration" value="noFraud" required>
-                        I have not engaged in misrepresentation or abuse of the policy
+                        <input type="checkbox" name="declaration" value="noFraud" id="decl3" required>
+                        <label for="decl3" style="display: inline; margin: 0;">I have not engaged in misrepresentation or abuse of the policy</label>
                     </div>
                     <div class="checkbox-item">
-                        <input type="checkbox" name="declaration" value="consentReview" required>
-                        I consent to a professional review of my policy and financial context
+                        <input type="checkbox" name="declaration" value="consentReview" id="decl4" required>
+                        <label for="decl4" style="display: inline; margin: 0;">I consent to a professional review of my policy and financial context</label>
                     </div>
                 </div>
             </fieldset>
 
-            <button type="submit">Submit for Review</button>
+            <button type="submit" id="submitBtn">Submit for Review</button>
 
             <!-- Final Disclaimer -->
             <div class="disclaimer">
@@ -549,23 +627,6 @@
         </form>
     </div>
 
-    <div id="thankYou"
-        style="display:none; text-align:center; padding:30px; background:#e8f5e8; border:1px solid #c8e6c9; border-radius:8px;">
-        <h2>Thank You!</h2>
-        <p>Your request has been submitted successfully.</p>
-        <p>Next steps:</p>
-        <ol>
-            <li>You will receive a confirmation from the system (check spam/junk folder).</li>
-            <li>Email your <strong>redacted documents</strong> to:
-                <a href="mailto:reliable.resource.02@gmail.com">reliable.resource.02@gmail.com</a>
-            </li>
-            <li>A licensed FA from your selected provider will contact you within 7–10 business days.</li>
-        </ol>
-        <p><strong>Note:</strong> No financial assistance is guaranteed. This program provides independent reviews only.
-        </p>
-        <p>For inquiries, contact R2 Solutions.</p>
-    </div>
-
     <script>
         // Show contact field based on method
         function showContactField() {
@@ -575,22 +636,26 @@
             const input = document.getElementById('contactInput');
 
             if (method === 'email') {
-                label.textContent = 'Email Address';
+                label.textContent = 'Email Address *';
                 input.type = 'email';
                 input.placeholder = 'e.g. maria.santos@email.com';
+                input.required = true;
                 container.style.display = 'block';
             } else if (method === 'phone') {
-                label.textContent = 'Phone Number';
+                label.textContent = 'Phone Number *';
                 input.type = 'text';
                 input.placeholder = 'e.g. 09123456789';
+                input.required = true;
                 container.style.display = 'block';
             } else if (method === 'mail') {
-                label.textContent = 'Mailing Address (for correspondence)';
+                label.textContent = 'Mailing Address (for correspondence) *';
                 input.type = 'text';
                 input.placeholder = 'e.g. 123 Main St, Makati City';
+                input.required = true;
                 container.style.display = 'block';
             } else {
                 container.style.display = 'none';
+                input.required = false;
             }
         }
 
@@ -598,104 +663,167 @@
         function showOtherProviderField() {
             const select = document.getElementById('preferredProvider');
             const otherField = document.getElementById('otherProviderField');
+            const otherInput = document.getElementById('otherProvider');
+            
             if (select.value === 'other') {
                 otherField.style.display = 'block';
+                otherInput.required = true;
             } else {
                 otherField.style.display = 'none';
+                otherInput.required = false;
             }
         }
 
         // Show other company field
-        function syncProvider() {
+        function showOtherCompanyField() {
             const select = document.getElementById('insuranceCompany');
             const otherField = document.getElementById('otherCompanyField');
+            const otherInput = document.getElementById('otherCompany');
+            
             if (select.value === 'otherCompany') {
                 otherField.style.display = 'block';
+                otherInput.required = true;
             } else {
                 otherField.style.display = 'none';
-            }
-        }
-
-        // Enable Submit Button Only When All Consent Checks Are Selected
-        function checkConsent() {
-            const checkboxes = document.querySelectorAll('input[name="declaration"]');
-            const submitButton = document.querySelector('#vulReviewForm button[type="submit"]');
-
-            let allChecked = true;
-            checkboxes.forEach(cb => {
-                if (!cb.checked) {
-                    allChecked = false;
-                }
-            });
-
-            if (allChecked) {
-                submitButton.disabled = false;
-                submitButton.style.backgroundColor = '#1a3d6d';
-                submitButton.style.cursor = 'pointer';
-            } else {
-                submitButton.disabled = true;
-                submitButton.style.backgroundColor = '#cccccc';
-                submitButton.style.cursor = 'not-allowed';
+                otherInput.required = false;
             }
         }
 
         // Show/hide conditional fields
-        document.querySelectorAll('input[name="missedPremiums"]').forEach(radio => {
-            radio.addEventListener('change', function () {
-                document.getElementById('missedPremiumsExplanation').style.display = this.value === 'yes' ? 'block' : 'none';
-            });
-        });
+        function showNeedExplanation() {
+            const yesRadio = document.getElementById('ongoing_yes');
+            const container = document.getElementById('needExplanation');
+            
+            if (yesRadio.checked) {
+                container.style.display = 'block';
+            } else {
+                container.style.display = 'none';
+            }
+        }
 
-        document.querySelectorAll('input[name="policyLoans"]').forEach(radio => {
-            radio.addEventListener('change', function () {
-                document.getElementById('loanBalanceField').style.display = this.value === 'yes' ? 'block' : 'none';
-            });
-        });
+        // Handle checkbox group validation for required fields
+        function validateCheckboxGroup(groupName) {
+            const checkboxes = document.querySelectorAll(`input[name="${groupName}"]:checked`);
+            return checkboxes.length > 0;
+        }
 
-        document.querySelectorAll('input[name="ongoingNeed"]').forEach(radio => {
-            radio.addEventListener('change', function () {
-                document.getElementById('needExplanation').style.display = this.value === 'yes' ? 'block' : 'none';
-            });
-        });
+        // Custom form validation
+        function validateForm() {
+            let isValid = true;
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.style.display = 'none';
 
-        // Show thank-you after form submission
-        document.getElementById('vulReviewForm').addEventListener('submit', function (e) {
-            const checkboxes = document.querySelectorAll('input[name="declaration"]:checked');
-            if (checkboxes.length < 4) {
-                alert("Please confirm all declarations before submitting.");
-                e.preventDefault();
+            // Check required checkbox groups
+            const requiredGroups = ['originalPurpose', 'salePresentation'];
+            
+            requiredGroups.forEach(groupName => {
+                if (!validateCheckboxGroup(groupName)) {
+                    isValid = false;
+                    // Add visual feedback for missing checkbox groups
+                    const fieldset = document.querySelector(`input[name="${groupName}"]`).closest('fieldset');
+                    if (fieldset) {
+                        fieldset.style.borderColor = '#d32f2f';
+                        setTimeout(() => {
+                            fieldset.style.borderColor = '#eee';
+                        }, 3000);
+                    }
+                }
+            });
+
+            // Check all consent declarations
+            const declarations = document.querySelectorAll('input[name="declaration"]:checked');
+            if (declarations.length < 4) {
+                isValid = false;
+                const fieldset = document.querySelector('input[name="declaration"]').closest('fieldset');
+                if (fieldset) {
+                    fieldset.style.borderColor = '#d32f2f';
+                    setTimeout(() => {
+                        fieldset.style.borderColor = '#eee';
+                    }, 3000);
+                }
+            }
+
+            if (!isValid) {
+                errorMessage.textContent = 'Please complete all required fields including checkbox selections.';
+                errorMessage.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            return isValid;
+        }
+
+        // Handle form submission
+        document.getElementById('vulReviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form first
+            if (!validateForm()) {
                 return;
             }
 
-            // Show your thank-you message in THIS tab
-            const thankYou = document.getElementById('thankYou');
-            thankYou.style.display = 'block';
+            const form = this;
+            const submitBtn = document.getElementById('submitBtn');
+            const originalText = submitBtn.textContent;
+            
+            // Show loading state
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
+
+            // Prepare form data
+            const formData = new FormData(form);
+
+            // Submit to Formspree
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success - show thank you message
+                    document.getElementById('successMessage').style.display = 'block';
+                    form.style.display = 'none';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const errorMessage = document.getElementById('errorMessage');
+                errorMessage.textContent = 'There was a problem submitting your form. Please try again or contact us directly at reliable.resource.02@gmail.com';
+                errorMessage.style.display = 'block';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .finally(() => {
+                // Reset button
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            });
         });
 
         // Initialize on load
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('contactField').style.display = 'none';
-            document.getElementById('otherProviderField').style.display = 'none';
-            document.getElementById('otherCompanyField').style.display = 'none';
-
-            // Disable submit button initially
-            const submitButton = document.querySelector('#vulReviewForm button[type="submit"]');
-            submitButton.disabled = true;
-            submitButton.style.backgroundColor = '#cccccc';
-            submitButton.style.cursor = 'not-allowed';
-
-            // Add event listeners to consent checkboxes
-            document.querySelectorAll('input[name="declaration"]').forEach(checkbox => {
-                checkbox.addEventListener('change', checkConsent);
-            });
-
-            // Other event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners
             document.querySelectorAll('input[name="preferredContact"]').forEach(radio => {
                 radio.addEventListener('change', showContactField);
             });
 
             document.getElementById('preferredProvider').addEventListener('change', showOtherProviderField);
-            document.getElementById('insuranceCompany').addEventListener('change', syncProvider);
+            document.getElementById('insuranceCompany').addEventListener('change', showOtherCompanyField);
+
+            // Add event listeners for ongoing need radio buttons
+            document.querySelectorAll('input[name="ongoingNeed"]').forEach(radio => {
+                radio.addEventListener('change', showNeedExplanation);
+            });
+
+            // Initialize hidden fields
+            document.getElementById('contactField').style.display = 'none';
+            document.getElementById('otherProviderField').style.display = 'none';
+            document.getElementById('otherCompanyField').style.display = 'none';
+            document.getElementById('needExplanation').style.display = 'none';
         });
     </script>
 
